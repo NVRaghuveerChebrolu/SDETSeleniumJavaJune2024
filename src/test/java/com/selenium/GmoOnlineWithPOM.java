@@ -43,8 +43,9 @@ public class GmoOnlineWithPOM extends Library{
 		System.out.println("ActualTotalPriceFromAppWithoutDoller:"+ActualTotalPriceFromAppWithoutDoller);
 		float CalculatedFloatValueOfTotalPriceFromApp =  Float.parseFloat(ActualTotalPriceFromAppWithoutDoller);
 		System.out.println("CalculatedFloatValueOfTotalPriceFromApp:"+CalculatedFloatValueOfTotalPriceFromApp);
-		//driver.close();
+		
 		Assert.assertEquals(calculatedValueOfUnitPrice, CalculatedFloatValueOfTotalPriceFromApp);
+		driver.close();
 	}
 
 }
