@@ -34,7 +34,7 @@ public class ValidateAlertsInSeleneium extends Library{
 	  Assert.assertEquals(title, objProp.getProperty("TitleOfDemoQA"));
   }
   
-  @Test(priority=1)
+  @Test(priority=1,dependsOnMethods= {"ValidateLaunchAlertsOnDemoQA"})
   public void ValidateNoramlAlertOnDemoQA() throws InterruptedException{
 	  System.out.println("inside ValidateNoramlAlertOnDemoQA");
 	  AlertsPOM objAlertsPOM = new AlertsPOM(driver);
@@ -59,6 +59,34 @@ public class ValidateAlertsInSeleneium extends Library{
 	  String textOftimerAlert = objAlert.getText();
 	  Assert.assertEquals(textOftimerAlert, objProp.getProperty("TextMessageOfTimerAlert"));
 	  objAlert.accept();
+  }
+  
+  @Test(priority=3)
+  public void ValidateConfirmBoxAlertOnDemoQA() {
+	  System.out.println("inside ValidateConfirmBoxAlertOnDemoQA");
+	  AlertsPOM objPOM = new AlertsPOM(driver);
+	  objPOM.confirmButton.click();
+	  Alert objAlert = driver.switchTo().alert();
+	  String textOfConfirmBoxAlert = objAlert.getText();
+	  Assert.assertEquals(textOfConfirmBoxAlert, objProp.getProperty("TextMessageOfConfirmBoxAlert"));
+	  objAlert.dismiss();
+	  boolean ConfirmAlertResult = objPOM.confirmResult.isDisplayed();
+	  //Assert.assertEquals(ConfirmAlertResult, true);
+	  Assert.assertTrue(ConfirmAlertResult, "ConfirmAlertResult message is not displayed");
+  }
+  
+  @Test(priority=4)
+  public void ValidatePromptBoxAlertonDemoQA() {
+	  System.out.println("inisde ValidatePromptBoxAlertonDemoQA");
+	  AlertsPOM objAlertsPOM =new AlertsPOM(driver);
+	  objAlertsPOM.promtButton.click();
+	  Alert objAlert = driver.switchTo().alert();
+	  String TextDisplayed = objAlert.getText();
+	  Assert.assertEquals(TextDisplayed, objProp.getProperty("TextMessageOfPropmtBoxAlert"));
+	  objAlert.sendKeys(objProp.getProperty("PromptBoxMessageEntered"));
+	  objAlert.accept();
+	  String PromptBoxResultMessageDisplayed=objAlertsPOM.promptResult.getText();
+	  Assert.assertEquals(PromptBoxResultMessageDisplayed, objProp.getProperty("PrompBoxResult"));
   }
   
   @BeforeMethod

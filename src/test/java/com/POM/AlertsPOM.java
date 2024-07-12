@@ -20,5 +20,16 @@ public class AlertsPOM {
 	@FindBy(id = "timerAlertButton")
 	public WebElement timerAlertButton;
 	
+	@FindBy(id = "confirmButton")
+	public WebElement confirmButton;
+	
+	@FindBy(id = "promtButton")
+	public WebElement promtButton;
+	
+	@FindBy(id = "confirmResult")
+	public WebElement confirmResult;
+	
+	@FindBy(id = "promptResult")
+	public WebElement promptResult;
 
 }
