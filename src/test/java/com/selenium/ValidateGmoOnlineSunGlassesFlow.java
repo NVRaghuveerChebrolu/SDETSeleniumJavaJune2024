@@ -35,7 +35,8 @@ public class ValidateGmoOnlineSunGlassesFlow extends Library {
 	@Test(priority = 1,dependsOnMethods = {"ValidateLaunchOfGmoOnlineApplication"})
 	public void ValidateGlacierSunGlassesProduct() throws InterruptedException {
 		GmoOnlinePOM objPOM = new GmoOnlinePOM(driver);
-		objPOM.EnterGmoOnline.click();
+		//objPOM.EnterGmoOnline.click();
+		objPOM.ClickOnEnterGmoOnlineButton();
 		PageLoadTimeOut(Constants.PageLoadTimeOut);
 		String titleOfOnlineCatalog = driver.getTitle();
 		// hard assertion : if the validation step got failed, then it wont proceed

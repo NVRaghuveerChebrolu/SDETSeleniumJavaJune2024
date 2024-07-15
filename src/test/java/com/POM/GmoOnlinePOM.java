@@ -31,5 +31,9 @@ public class GmoOnlinePOM {
 	
 	@FindBy(xpath="//table[@cellpadding='4' and @border='1']/tbody/tr[2]/td[5]")
 	public WebElement totalPrimeFromApp;
+	
+	public void ClickOnEnterGmoOnlineButton() {
+		EnterGmoOnline.click();
+	}
 
 }
