@@ -17,7 +17,9 @@ import java.time.Duration;
 
 import org.openqa.selenium.Alert;
 import org.openqa.selenium.By;
+import org.openqa.selenium.WebElement;
 import org.openqa.selenium.interactions.Actions;
+import org.openqa.selenium.support.Color;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 import org.testng.Assert;
@@ -51,8 +53,28 @@ public class ValidateMouseOperationsInSeleneium extends Library{
 		Assert.assertEquals(TextMessageOfAlert, objProp.getProperty("mouseOpeartionRightclick_PateOptionAlertText"));
 		objAlert.accept();
 	}
+	
+	@Test(priority=3)
+	public void ValidateoDoubleClickOperation() {
+		System.out.println("inside ValidateoDoubleClickOperation");
+		driver.navigate().to(objProp.getProperty("mouseOpeartionDoubleClick"));
+		PageLoadTimeOut(Constants.PageLoadTimeOut);
+		MouseOperationPOM objMousePOM = new MouseOperationPOM();
+		ScrollIntoWebElement(objMousePOM.iframe);
+		driver.switchTo().frame(objMousePOM.iframe);
+		String colorOfBoxBeforeDoubleCick= objMousePOM.blueColorBox.getCssValue("background-color");
+		System.out.println("colorOfBoxBeforeDoubleCick:"+colorOfBoxBeforeDoubleCick);
+		Assert.assertEquals(colorOfBoxBeforeDoubleCick, objProp.getProperty("colorOfBoxBeforeDoubleCick"));
+		Actions objActions = new Actions(driver);
+		objActions.doubleClick(objMousePOM.blueColorBox).build().perform();
+		String colorOfBoxAfterDoubleCick= objMousePOM.blueColorBox.getCssValue("background-color");
+		System.out.println("colorOfBoxAfterDoubleCick:"+colorOfBoxAfterDoubleCick);
+		Assert.assertEquals(colorOfBoxAfterDoubleCick, objProp.getProperty("colorOfBoxAfterDoubleCick"));
+		driver.switchTo().defaultContent();//to switch back the control to the main html page
+		
+	}
 
-  @BeforeMethod
+@BeforeMethod
   public void beforeMethod() {
   }
 

@@ -17,4 +17,10 @@ public class MouseOperationPOM extends Library {
 
 	@FindBy(xpath="//span[text()='Paste']")
 	public WebElement PasteOption;
+	
+	@FindBy(xpath="//iframe[@width='100%']")
+	public WebElement iframe;
+	
+	@FindBy(xpath="//span[contains(text(),'Double click')]/preceding-sibling::div")
+	public WebElement blueColorBox;
 }
