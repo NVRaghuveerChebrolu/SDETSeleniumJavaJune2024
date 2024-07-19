@@ -23,4 +23,13 @@ public class MouseOperationPOM extends Library {
 	
 	@FindBy(xpath="//span[contains(text(),'Double click')]/preceding-sibling::div")
 	public WebElement blueColorBox;
+	
+	@FindBy(xpath="//iframe[@class='demo-frame']")
+	public WebElement DragAndDropiframe;
+	
+	@FindBy(id="draggable")
+	public WebElement draggable;
+	
+	@FindBy(id="droppable")
+	public WebElement droppable;
 }

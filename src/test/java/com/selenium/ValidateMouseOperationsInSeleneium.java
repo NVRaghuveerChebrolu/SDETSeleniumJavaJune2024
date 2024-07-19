@@ -73,6 +73,20 @@ public class ValidateMouseOperationsInSeleneium extends Library{
 		driver.switchTo().defaultContent();//to switch back the control to the main html page
 		
 	}
+	
+	@Test(priority=4)
+	public void ValidateDragAndDrop() {
+		System.out.println("inside ValidateDragAndDrop");
+		driver.navigate().to(objProp.getProperty("mouseOperationDragAndDrop"));
+		PageLoadTimeOut(Constants.PageLoadTimeOut);
+		MouseOperationPOM objMousePOM = new MouseOperationPOM();
+		ScrollIntoWebElement(objMousePOM.DragAndDropiframe);
+		driver.switchTo().frame(objMousePOM.DragAndDropiframe);
+		Actions objActions = new Actions(driver);
+		//objActions.clickAndHold(objMousePOM.draggable);
+		//objActions.moveToElement(objMousePOM.droppable).build().perform();
+		objActions.dragAndDrop(objMousePOM.draggable, objMousePOM.droppable).build().perform();
+	}
 
 @BeforeMethod
   public void beforeMethod() {
