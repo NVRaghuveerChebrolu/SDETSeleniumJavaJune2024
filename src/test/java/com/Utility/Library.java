@@ -70,4 +70,9 @@ public class Library {
 		
 	}
 
+	public void DocumentReadyStateComplete() {
+		JavascriptExecutor j = (JavascriptExecutor)driver;
+		j.executeScript("return document.readyState").toString().equals("complete");
+	}
+	
 }
