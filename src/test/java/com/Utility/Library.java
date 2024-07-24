@@ -6,6 +6,7 @@ import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.time.Duration;
 import java.util.Properties;
+import java.util.Random;
 
 import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.WebDriver;
@@ -73,6 +74,17 @@ public class Library {
 	public void DocumentReadyStateComplete() {
 		JavascriptExecutor j = (JavascriptExecutor)driver;
 		j.executeScript("return document.readyState").toString().equals("complete");
+	}
+	
+	public int randomCalenderDayvalue() {
+		Random random = new Random();   
+		// Generates random integers 0 to 31 
+		int x = random.nextInt(32); 
+		if(x==0) {
+			x=1;
+		}
+		System.out.println("random day generated is:"+x);
+		return x;
 	}
 	
 }
