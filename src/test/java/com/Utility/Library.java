@@ -4,21 +4,97 @@ import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.IOException;
+import java.text.SimpleDateFormat;
 import java.time.Duration;
+import java.util.Date;
 import java.util.Properties;
 import java.util.Random;
 
+import org.apache.commons.io.FileUtils;
+
 import org.openqa.selenium.JavascriptExecutor;
+import org.openqa.selenium.OutputType;
+import org.openqa.selenium.TakesScreenshot;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.edge.EdgeDriver;
 import org.openqa.selenium.firefox.FirefoxDriver;
 import org.openqa.selenium.ie.InternetExplorerDriver;
+import org.testng.ITestResult;
+
+import com.aventstack.extentreports.ExtentReports;
+import com.aventstack.extentreports.ExtentTest;
+import com.aventstack.extentreports.Status;
+import com.aventstack.extentreports.reporter.ExtentHtmlReporter;
+import com.aventstack.extentreports.reporter.configuration.Theme;
 
 public class Library {
 	public static WebDriver driver;
 	public static Properties objProp;
+	
+	public static ExtentHtmlReporter ExtHtmlReporter ;
+	public static ExtentReports ExtReports;
+	public static ExtentTest ExtTest;
+	
+	/*
+	 * ExtentHtmlReporter : responsible for look and feel of the report ,we can
+	 * specify the report name , document title , theme of the report
+	 * 
+	 * ExtentReports : used to create entries in your report , create test cases in
+	 * report , who executed the test case, environment name , browser
+	 * 
+	 * ExtentTest : update pass fail and skips and logs the test cases results
+	 */
+	
+	public void StartExtentReport() {
+		// TODO Auto-generated method stub
+		File objFile = new File(System.getProperty("user.dir")+"//test-output//ExtentReportV4.html");
+		ExtentHtmlReporter objExtentHtmlReporter = new ExtentHtmlReporter(objFile);
+		objExtentHtmlReporter.config().setDocumentTitle("Automation Report");
+		objExtentHtmlReporter.config().setReportName("Extent Report");
+		objExtentHtmlReporter.config().setTheme(Theme.STANDARD);
+		ExtReports = new ExtentReports();
+		ExtReports.attachReporter(objExtentHtmlReporter);
+		
+		ExtReports.setSystemInfo("TesterName", "Raghuveer");
+		ExtReports.setSystemInfo("Broswer", objProp.getProperty("browser"));
+		ExtReports.setSystemInfo("Environment", objProp.getProperty("Environment"));
+		
+	}
+	
+	public void UpdatingResultInExtentReport(ITestResult result) {
+		// TODO Auto-generated method stub
+		if(result.getStatus()==ITestResult.SUCCESS) {
+			ExtTest.log(Status.PASS, "Test Case Passed is "+result.getName());
+		}else if(result.getStatus()==ITestResult.FAILURE) {
+			ExtTest.log(Status.FAIL, "Test Case Failed is "+result.getName());
+			ExtTest.log(Status.FAIL, "Test Case Failed due to "+result.getThrowable());
+			try {
+				ExtTest.addScreenCaptureFromPath(TakeScreenShot(result.getName()));
+			} catch (Exception e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+		}else if(result.getStatus()==ITestResult.SKIP) {
+			ExtTest.log(Status.SKIP, "Test Case Skipped is "+result.getName());
+		}
+	}
+	
+	/* Author : Raghuveer
+	 * This method is used to take screen shot and store the screen shots in side ScreenShot folder
+	 */
+	public static String TakeScreenShot(String testcaseName) throws IOException {
+		File src = ((TakesScreenshot) driver).getScreenshotAs(OutputType.FILE);
+		String dateName = new SimpleDateFormat("yyyyMMddHHmmss").format(new Date());
+		String destination = System.getProperty("user.dir") + "//ScreenShots//" + dateName + testcaseName+"captured.jpeg";
+		FileUtils.copyFile(src, new File(destination));
+		return destination;
+	}
+	
+	public void FlushReport() {
+		ExtReports.flush();
+	}
 
 	public static void ReadPropertiesFile() throws IOException {
 		try {

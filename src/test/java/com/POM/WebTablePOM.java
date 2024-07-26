@@ -23,4 +23,8 @@ public class WebTablePOM extends Library {
 	@FindBy(xpath = "//button[@class='dt-paging-button next']")
 	public WebElement NextPage;
 	
+	@FindBy(xpath = "//div[@class='dt-paging']/nav/button")
+	public List<WebElement> AllNavigationPageButtons;
+	
+	
 }

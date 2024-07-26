@@ -30,6 +30,7 @@ import org.openqa.selenium.support.Color;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 import org.testng.Assert;
+import org.testng.ITestResult;
 import org.testng.annotations.AfterClass;
 import org.testng.annotations.BeforeTest;
 import org.testng.annotations.AfterTest;
@@ -41,63 +42,76 @@ public class ValidateWebTableInDataTables extends Library {
 	@Test(priority = 1)
 	public void ValidateDatablePageLoaded() {
 		System.out.println("inside ValidateDatablePageLoaded");
+//		ExtTest=ExtReports.createTest(new Object() {}.getClass().getEnclosingMethod().getName());
 		driver.get(objProp.getProperty("WebTableURL"));
 		PageLoadTimeOut(Constants.pageLoadTimeOut);
 		Assert.assertEquals(driver.getTitle(), objProp.getProperty("TitleOfWebTable"));
 	}
 
-	@Test(priority=2)
+	@Test(priority = 2)
 	public void ValidateWebTableCntentsBasedOnLastName() {
 		System.out.println("inside ValidateWebTableCntentsBasedOnLastName");
+		ExtTest=ExtReports.createTest(new Object() {}.getClass().getEnclosingMethod().getName());
 		WebTablePOM objWebTablePOM = new WebTablePOM();
 		ScrollIntoWebElement(objWebTablePOM.webTable);
 		List<WebElement> AllLastNames = objWebTablePOM.AllLastNames;
-		System.out.println("Number Of LastNames:"+AllLastNames.size());
-		HashMap<String,String> WebTableContent = new HashMap<String,String>();
-		
-		for(int row=0;row<=AllLastNames.size()-1;row++) {
-			String LastName =AllLastNames.get(row).getText();
-			System.out.println("LastName at "+row+" is: "+LastName);
-			if(LastName.equalsIgnoreCase(objProp.getProperty("WebTableLastName"))) {
-				row=row+1;
-				String firstName=driver.findElement(By.xpath("//table[@id='example']/tbody/tr["+row+"]/td[2]")).getText();
-				String position=driver.findElement(By.xpath("//table[@id='example']/tbody/tr["+row+"]/td[4]")).getText();
-				String office=driver.findElement(By.xpath("//table[@id='example']/tbody/tr["+row+"]/td[5]")).getText();
-				String startDate=driver.findElement(By.xpath("//table[@id='example']/tbody/tr["+row+"]/td[6]")).getText();
-				String salary=driver.findElement(By.xpath("//table[@id='example']/tbody/tr["+row+"]/td[7]")).getText();
-				WebTableContent.put("FirstName", firstName);
-				WebTableContent.put("LastName", LastName);
-				WebTableContent.put("Position", position);
-				WebTableContent.put("StartDate", startDate);
-				WebTableContent.put("Salary", salary);
+		System.out.println("Number Of LastNames:" + AllLastNames.size());
+		HashMap<String, String> WebTableContent = new HashMap<String, String>();
+		int numbersOfPages = objWebTablePOM.AllNavigationPageButtons.size() - 4;
+		for (int page = 1; page <= numbersOfPages; page++) {
+			System.out.println("we are at page number:"+page);
+			for (int row = 0; row <= AllLastNames.size() - 1; row++) {
+				String LastName = AllLastNames.get(row).getText();
+				System.out.println("LastName at " + row + " is: " + LastName);
+				if (LastName.equalsIgnoreCase(objProp.getProperty("WebTableLastName"))) {
+					row = row + 1;
+					String firstName = driver
+							.findElement(By.xpath("//table[@id='example']/tbody/tr[" + row + "]/td[2]")).getText();
+					String position = driver.findElement(By.xpath("//table[@id='example']/tbody/tr[" + row + "]/td[4]"))
+							.getText();
+					String office = driver.findElement(By.xpath("//table[@id='example']/tbody/tr[" + row + "]/td[5]"))
+							.getText();
+					String startDate = driver
+							.findElement(By.xpath("//table[@id='example']/tbody/tr[" + row + "]/td[6]")).getText();
+					String salary = driver.findElement(By.xpath("//table[@id='example']/tbody/tr[" + row + "]/td[7]"))
+							.getText();
+					WebTableContent.put("FirstName", firstName);
+					WebTableContent.put("LastName", LastName);
+					WebTableContent.put("Position", position);
+					WebTableContent.put("StartDate", startDate);
+					WebTableContent.put("Office", office);
+					WebTableContent.put("Salary", salary);
+					break;
+				}
 			}
-//			else if(row==9){
-//				boolean nextpageEnabled = objWebTablePOM.NextPage.isEnabled();
-//				if(nextpageEnabled==true) {
-//					objWebTablePOM.NextPage.click();
-//				}
-//			}
+			if (WebTableContent.isEmpty()) {
+				objWebTablePOM.NextPage.click();
+			}else if(!WebTableContent.isEmpty()) {
+				break;
+			}
 		}
-		for(Map.Entry<String, String> map:WebTableContent.entrySet()) {
-			System.out.println(map.getKey()+":"+map.getValue());
+		for (Map.Entry<String, String> map : WebTableContent.entrySet()) {
+			System.out.println(map.getKey() + ":" + map.getValue());
 		}
 	}
-	
-	
+
 	@BeforeMethod
 	public void beforeMethod() {
 	}
 
 	@AfterMethod
-	public void afterMethod() {
+	public void afterMethod(ITestResult result ) {
+		UpdatingResultInExtentReport(result);
 	}
 
 	@BeforeClass
 	public void beforeClass() {
+		StartExtentReport();
 	}
 
 	@AfterClass
 	public void afterClass() {
+		FlushReport();
 	}
 
 	@BeforeTest
