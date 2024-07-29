@@ -42,7 +42,7 @@ public class ValidateWebTableInDataTables extends Library {
 	@Test(priority = 1)
 	public void ValidateDatablePageLoaded() {
 		System.out.println("inside ValidateDatablePageLoaded");
-//		ExtTest=ExtReports.createTest(new Object() {}.getClass().getEnclosingMethod().getName());
+		ExtTest=ExtReports.createTest(new Object() {}.getClass().getEnclosingMethod().getName());
 		driver.get(objProp.getProperty("WebTableURL"));
 		PageLoadTimeOut(Constants.pageLoadTimeOut);
 		Assert.assertEquals(driver.getTitle(), objProp.getProperty("TitleOfWebTable"));
@@ -69,7 +69,7 @@ public class ValidateWebTableInDataTables extends Library {
 							.findElement(By.xpath("//table[@id='example']/tbody/tr[" + row + "]/td[2]")).getText();
 					String position = driver.findElement(By.xpath("//table[@id='example']/tbody/tr[" + row + "]/td[4]"))
 							.getText();
-					String office = driver.findElement(By.xpath("//table[@id='example']/tbody/tr[" + row + "]/td[5]"))
+					String office = driver.findElement(By.xpath("//table[@id='example']/tbody/tr[" + row + "]td[5]"))
 							.getText();
 					String startDate = driver
 							.findElement(By.xpath("//table[@id='example']/tbody/tr[" + row + "]/td[6]")).getText();

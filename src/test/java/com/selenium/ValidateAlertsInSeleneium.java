@@ -18,6 +18,7 @@ import org.openqa.selenium.By;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 import org.testng.Assert;
+import org.testng.ITestResult;
 import org.testng.annotations.AfterClass;
 import org.testng.annotations.BeforeTest;
 import org.testng.annotations.AfterTest;
@@ -29,6 +30,7 @@ public class ValidateAlertsInSeleneium extends Library{
   @Test(priority=0)
   public void ValidateLaunchAlertsOnDemoQA() {
 	  driver.get(objProp.getProperty("AlertsURL"));
+	  ExtTest=ExtReports.createTest(new Object() {}.getClass().getEnclosingMethod().getName());
 	  PageLoadTimeOut(Constants.PageLoadTimeOut);
 	  String title=driver.getTitle();
 	  Assert.assertEquals(title, objProp.getProperty("TitleOfDemoQA"));
@@ -37,6 +39,7 @@ public class ValidateAlertsInSeleneium extends Library{
   @Test(priority=1,dependsOnMethods= {"ValidateLaunchAlertsOnDemoQA"})
   public void ValidateNoramlAlertOnDemoQA() throws InterruptedException{
 	  System.out.println("inside ValidateNoramlAlertOnDemoQA");
+	  ExtTest=ExtReports.createTest(new Object() {}.getClass().getEnclosingMethod().getName());
 	  AlertsPOM objAlertsPOM = new AlertsPOM(driver);
 	  objAlertsPOM.NormalAlertButton.click();
 	  //driver.findElement(By.id("alertButton")).click();
@@ -50,6 +53,7 @@ public class ValidateAlertsInSeleneium extends Library{
   @Test(priority=2)
   public void ValidateTimerAlertOnDemoQA() throws InterruptedException {
 	  System.out.println("inside ValidateTimerAlertOnDemoQA");
+	  ExtTest=ExtReports.createTest(new Object() {}.getClass().getEnclosingMethod().getName());
 	  AlertsPOM objPOM= new AlertsPOM(driver);
 	  objPOM.timerAlertButton.click();
 	  WebDriverWait wait = new WebDriverWait(driver,Duration.ofSeconds(30));
@@ -64,6 +68,7 @@ public class ValidateAlertsInSeleneium extends Library{
   @Test(priority=3)
   public void ValidateConfirmBoxAlertOnDemoQA() {
 	  System.out.println("inside ValidateConfirmBoxAlertOnDemoQA");
+	  ExtTest=ExtReports.createTest(new Object() {}.getClass().getEnclosingMethod().getName());
 	  AlertsPOM objPOM = new AlertsPOM(driver);
 	  objPOM.confirmButton.click();
 	  Alert objAlert = driver.switchTo().alert();
@@ -78,6 +83,7 @@ public class ValidateAlertsInSeleneium extends Library{
   @Test(priority=4)
   public void ValidatePromptBoxAlertonDemoQA() {
 	  System.out.println("inisde ValidatePromptBoxAlertonDemoQA");
+	  ExtTest=ExtReports.createTest(new Object() {}.getClass().getEnclosingMethod().getName());
 	  AlertsPOM objAlertsPOM =new AlertsPOM(driver);
 	  objAlertsPOM.promtButton.click();
 	  Alert objAlert = driver.switchTo().alert();
@@ -94,15 +100,21 @@ public class ValidateAlertsInSeleneium extends Library{
   }
 
   @AfterMethod
-  public void afterMethod() {
+  public void afterMethod(ITestResult result) {
+	  System.out.println("inside afterMethod");
+	  UpdatingResultInExtentReport(result);
   }
 
   @BeforeClass
   public void beforeClass() {
+	  System.out.println("inside beforeClass");
+	  StartExtentReport();
   }
 
   @AfterClass
   public void afterClass() {
+	  System.out.println("inside afterclass");
+	  FlushReport();
   }
 
   @BeforeTest

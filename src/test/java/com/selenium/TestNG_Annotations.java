@@ -21,9 +21,14 @@ public class TestNG_Annotations {
 	  System.out.println("inisde TestCase2");
   }
   
-  @Test
+  @Test(enabled=false)
   public void TestCase5() {
 	  System.out.println("inisde TestCase5");
+  }
+  
+  @Test
+  public void TestCase6() {
+	  System.out.println("inisde TestCase6");
   }
   
   @Test(priority=-7)
