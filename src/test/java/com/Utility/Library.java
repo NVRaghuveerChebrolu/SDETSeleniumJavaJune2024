@@ -7,11 +7,13 @@ import java.io.IOException;
 import java.text.SimpleDateFormat;
 import java.time.Duration;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.Properties;
 import java.util.Random;
 
 import org.apache.commons.io.FileUtils;
-
+import org.apache.poi.ss.usermodel.DataFormatter;
+import org.apache.poi.xssf.usermodel.XSSFSheet;
 import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.OutputType;
 import org.openqa.selenium.TakesScreenshot;
@@ -36,7 +38,7 @@ public class Library {
 	public static ExtentHtmlReporter ExtHtmlReporter ;
 	public static ExtentReports ExtReports;
 	public static ExtentTest ExtTest;
-	
+	public HashMap<String,String> TestDataHashMap = new HashMap<String,String>();
 	/*
 	 * ExtentHtmlReporter : responsible for look and feel of the report ,we can
 	 * specify the report name , document title , theme of the report
@@ -162,5 +164,37 @@ public class Library {
 		System.out.println("random day generated is:"+x);
 		return x;
 	}
+	
+	public HashMap<String, String> ReadTestDataExcel(int row, XSSFSheet objXSSSheet) {
+		// TODO Auto-generated method stub
+		DataFormatter objDataFormatter = new DataFormatter();				 													
+		TestDataHashMap.put("RunMode", objXSSSheet.getRow(row).getCell(0).getStringCellValue());
+		TestDataHashMap.put("TestCaseName", objXSSSheet.getRow(row).getCell(1).getStringCellValue());
+		TestDataHashMap.put("FirstName", objXSSSheet.getRow(row).getCell(2).getStringCellValue());
+		TestDataHashMap.put("LastName", objXSSSheet.getRow(row).getCell(3).getStringCellValue());
+		TestDataHashMap.put("Address", objXSSSheet.getRow(row).getCell(4).getStringCellValue());
+		TestDataHashMap.put("Email", objXSSSheet.getRow(row).getCell(5).getStringCellValue());
+		
+		TestDataHashMap.put("PhoneNumber", objDataFormatter.formatCellValue(objXSSSheet.getRow(row).getCell(6)));
+		
+		TestDataHashMap.put("Gender", objXSSSheet.getRow(row).getCell(7).getStringCellValue());
+		TestDataHashMap.put("Hobbies", objXSSSheet.getRow(row).getCell(8).getStringCellValue());
+		TestDataHashMap.put("Languages", objXSSSheet.getRow(row).getCell(9).getStringCellValue());
+		TestDataHashMap.put("Skills", objXSSSheet.getRow(row).getCell(10).getStringCellValue());
+		TestDataHashMap.put("Country", objXSSSheet.getRow(row).getCell(11).getStringCellValue());
+		TestDataHashMap.put("SelectCountry", objXSSSheet.getRow(row).getCell(12).getStringCellValue());
+		
+		TestDataHashMap.put("DOB_YY", objDataFormatter.formatCellValue(objXSSSheet.getRow(row).getCell(13)));
+		
+		TestDataHashMap.put("DOB_MM", objXSSSheet.getRow(row).getCell(14).getStringCellValue());
+		
+		TestDataHashMap.put("DOB_DD", objDataFormatter.formatCellValue(objXSSSheet.getRow(row).getCell(5)));
+		
+		TestDataHashMap.put("Password", objXSSSheet.getRow(row).getCell(16).getStringCellValue());
+		TestDataHashMap.put("confirm Password", objXSSSheet.getRow(row).getCell(17).getStringCellValue());
+		
+		return TestDataHashMap;
+	}
+
 	
 }
