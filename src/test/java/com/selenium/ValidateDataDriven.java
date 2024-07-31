@@ -3,6 +3,7 @@ package com.selenium;
 import org.testng.annotations.Test;
 
 import com.POM.AlertsPOM;
+import com.POM.DataDrivenPOM;
 import com.POM.FramesPOM;
 import com.POM.MouseOperationPOM;
 import com.POM.WebTablePOM;
@@ -69,9 +70,38 @@ public class ValidateDataDriven extends Library {
 		for(int row=1;row<=NumberOfRows;row++) {
 			System.out.println("Data from row:"+row);
 			TestDataHashMap=ReadTestDataExcel(row,objXSSSheet);
-			System.out.println(TestDataHashMap.get("FirstName"));
-			System.out.println(TestDataHashMap.get("PhoneNumber"));
+			//System.out.println(TestDataHashMap.get("FirstName"));
+			//System.out.println(TestDataHashMap.get("PhoneNumber"));
 			//driver.findElement(By.xpath("")).sendKeys(TestDataHashMap.get("FirstName"));
+			DataDrivenPOM objDataDrovemPOM = new DataDrivenPOM();
+			objDataDrovemPOM.AutoDemoSiteFirstName.clear();
+			objDataDrovemPOM.AutoDemoSiteFirstName.sendKeys(TestDataHashMap.get("FirstName"));
+			
+			objDataDrovemPOM.AutoDemoSiteLastName.clear();
+			objDataDrovemPOM.AutoDemoSiteLastName.sendKeys(TestDataHashMap.get("LastName"));
+			
+			ClearingDataIntextBox(objDataDrovemPOM.AutoDemoSiteAdress);
+			EnterDataInTextBox(objDataDrovemPOM.AutoDemoSiteAdress,TestDataHashMap.get("Address"));
+			
+			ClearingDataIntextBox(objDataDrovemPOM.AutoDemoSiteEmail);
+			EnterDataInTextBox(objDataDrovemPOM.AutoDemoSiteEmail,TestDataHashMap.get("Email"));
+			
+			ClearingDataIntextBox(objDataDrovemPOM.AutoDemoSitePhone);
+			EnterDataInTextBox(objDataDrovemPOM.AutoDemoSitePhone,TestDataHashMap.get("PhoneNumber"));
+			
+			if(TestDataHashMap.get("Gender").equals(objProp.getProperty("AutoDemoSiteGender"))) {
+				objDataDrovemPOM.AutoDemoSiteGenderMale.click();
+			}else {
+				objDataDrovemPOM.AutoDemoSiteGenderFeMale.click();
+			}
+			
+			if(TestDataHashMap.get("Hobbies").equals("Cricket")) {
+				objDataDrovemPOM.AutoDemoSiteCricket.click();
+			}else if(TestDataHashMap.get("Hobbies").equals("Movies")) {
+				objDataDrovemPOM.AutoDemoSiteMovies.click();
+			}else {
+				objDataDrovemPOM.AutoDemoSiteHocky.click();
+			}
 			
 		}
 		}catch(Exception e) {

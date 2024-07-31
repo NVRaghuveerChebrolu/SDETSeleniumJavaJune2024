@@ -197,4 +197,12 @@ public class Library {
 	}
 
 	
+	public void EnterDataInTextBox(WebElement element,String data) {
+		element.sendKeys(data);
+	}
+	
+	public void ClearingDataIntextBox(WebElement element) {
+		element.clear();
+	}
+	
 }
