@@ -8,6 +8,7 @@ import java.text.SimpleDateFormat;
 import java.time.Duration;
 import java.util.Date;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Properties;
 import java.util.Random;
 
@@ -25,6 +26,7 @@ import org.openqa.selenium.firefox.FirefoxDriver;
 import org.openqa.selenium.ie.InternetExplorerDriver;
 import org.testng.ITestResult;
 
+import com.POM.DataDrivenPOM;
 import com.aventstack.extentreports.ExtentReports;
 import com.aventstack.extentreports.ExtentTest;
 import com.aventstack.extentreports.Status;
@@ -188,14 +190,18 @@ public class Library {
 		
 		TestDataHashMap.put("DOB_MM", objXSSSheet.getRow(row).getCell(14).getStringCellValue());
 		
-		TestDataHashMap.put("DOB_DD", objDataFormatter.formatCellValue(objXSSSheet.getRow(row).getCell(5)));
+		TestDataHashMap.put("DOB_DD", objDataFormatter.formatCellValue(objXSSSheet.getRow(row).getCell(15)));
 		
 		TestDataHashMap.put("Password", objXSSSheet.getRow(row).getCell(16).getStringCellValue());
-		TestDataHashMap.put("confirm Password", objXSSSheet.getRow(row).getCell(17).getStringCellValue());
+		TestDataHashMap.put("confirmPassword", objXSSSheet.getRow(row).getCell(17).getStringCellValue());
 		
 		return TestDataHashMap;
 	}
 
+	
+	public void WriteToExcelFile(int row, XSSFSheet objXSSSheet) {
+		objXSSSheet.getRow(row).createCell(18).setCellValue("Pass");
+	}
 	
 	public void EnterDataInTextBox(WebElement element,String data) {
 		element.sendKeys(data);
@@ -203,6 +209,17 @@ public class Library {
 	
 	public void ClearingDataIntextBox(WebElement element) {
 		element.clear();
+	}
+	
+	public void selectRequiredValueFromDropDown(List<WebElement> AllDropDownValues, String DropDownValueToBeSelected) {
+		int NumberOfDropDownValues = AllDropDownValues.size();
+		for(int i = 1;i<=NumberOfDropDownValues;i++) {
+			String IndividualDropDownValue=AllDropDownValues.get(i).getText();
+			if(IndividualDropDownValue.equals(DropDownValueToBeSelected)) {
+				AllDropDownValues.get(i).click();
+				break;
+			}
+		}
 	}
 	
 }

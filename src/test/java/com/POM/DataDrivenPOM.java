@@ -47,6 +47,11 @@ public class DataDrivenPOM extends Library {
 	@FindBy(id = "checkbox3")
 	public WebElement AutoDemoSiteHocky;
 	
+	
+	@FindBy(xpath = "//*[@class='ui-icon ui-icon-close']")
+	public WebElement closeIconOfSelectedLanguage;
+	
+	
 	@FindBy(id = "msdd")
 	public WebElement AutoDemoSiteLanguages;
 	

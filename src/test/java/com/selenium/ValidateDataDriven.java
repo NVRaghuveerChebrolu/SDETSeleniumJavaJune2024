@@ -17,6 +17,7 @@ import org.testng.annotations.BeforeClass;
 
 import java.io.File;
 import java.io.FileInputStream;
+import java.io.FileOutputStream;
 import java.io.IOException;
 import java.time.Duration;
 import java.util.HashMap;
@@ -73,6 +74,7 @@ public class ValidateDataDriven extends Library {
 			//System.out.println(TestDataHashMap.get("FirstName"));
 			//System.out.println(TestDataHashMap.get("PhoneNumber"));
 			//driver.findElement(By.xpath("")).sendKeys(TestDataHashMap.get("FirstName"));
+			if(TestDataHashMap.get("RunMode").equals("Yes")) {
 			DataDrivenPOM objDataDrovemPOM = new DataDrivenPOM();
 			objDataDrovemPOM.AutoDemoSiteFirstName.clear();
 			objDataDrovemPOM.AutoDemoSiteFirstName.sendKeys(TestDataHashMap.get("FirstName"));
@@ -103,14 +105,57 @@ public class ValidateDataDriven extends Library {
 				objDataDrovemPOM.AutoDemoSiteHocky.click();
 			}
 			
+			ScrollIntoWebElement(objDataDrovemPOM.AutoDemoSiteConfirmPassword);
+			
+			if(row>1) {
+				objDataDrovemPOM.closeIconOfSelectedLanguage.click();
+			}
+			
+			objDataDrovemPOM.AutoDemoSiteLanguages.click();
+			selectRequiredValueFromDropDown(objDataDrovemPOM.AutoDemoSiteAllLanguages,TestDataHashMap.get("Languages"));
+			objDataDrovemPOM.AutoDemoSiteSkillsField.click();
+			
+			objDataDrovemPOM.AutoDemoSiteDropDownSkills.click();
+			selectRequiredValueFromDropDown(objDataDrovemPOM.AutoDemoSiteAllSkills,TestDataHashMap.get("Skills"));
+			
+			objDataDrovemPOM.AutoDemoSiteSelectCountry.click();
+			objDataDrovemPOM.AutoDemoSiteSelectCountryTextBox.sendKeys(TestDataHashMap.get("SelectCountry"));
+			objDataDrovemPOM.AutoDemoSiteSelectCountryFromTextBox.click();
+			
+			objDataDrovemPOM.AutoDemoSiteYear.click();
+			selectRequiredValueFromDropDown(objDataDrovemPOM.AutoDemoSiteAllYears,TestDataHashMap.get("DOB_YY"));
+			
+			objDataDrovemPOM.AutoDemoSiteMonth.click();
+			selectRequiredValueFromDropDown(objDataDrovemPOM.AutoDemoSiteAllMonths,TestDataHashMap.get("DOB_MM"));
+			
+			objDataDrovemPOM.AutoDemoSiteDay.click();
+			selectRequiredValueFromDropDown(objDataDrovemPOM.AutoDemoSiteAllDays,TestDataHashMap.get("DOB_DD"));
+			
+			objDataDrovemPOM.AutoDemoSitePassword.clear();
+			objDataDrovemPOM.AutoDemoSitePassword.sendKeys(TestDataHashMap.get("Password"));
+			
+			objDataDrovemPOM.AutoDemoSiteConfirmPassword.clear();
+			objDataDrovemPOM.AutoDemoSiteConfirmPassword.sendKeys(TestDataHashMap.get("confirmPassword"));
+			
+			FileOutputStream objFileoutput = new FileOutputStream(objTestDataFile);
+			WriteToExcelFile(row,objXSSSheet);
+			objXSSFWorkBook.write(objFileoutput);
+			}else {
+				System.out.println("Row Number: "+row +"is not marked as Yes on the Test Data Excel File");
+			}
+			
 		}
+		objXSSFWorkBook.close();
+		objInputStream.close();
 		}catch(Exception e) {
 			e.printStackTrace();
 		}
 	
 	}
 
+
 	
+
 	@BeforeMethod
 	public void beforeMethod() {
 	}
