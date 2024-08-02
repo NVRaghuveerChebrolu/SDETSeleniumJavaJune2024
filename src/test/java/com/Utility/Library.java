@@ -33,9 +33,8 @@ import com.aventstack.extentreports.Status;
 import com.aventstack.extentreports.reporter.ExtentHtmlReporter;
 import com.aventstack.extentreports.reporter.configuration.Theme;
 
-public class Library {
-	public static WebDriver driver;
-	public static Properties objProp;
+public class Library extends Base{
+	
 	
 	public static ExtentHtmlReporter ExtHtmlReporter ;
 	public static ExtentReports ExtReports;
