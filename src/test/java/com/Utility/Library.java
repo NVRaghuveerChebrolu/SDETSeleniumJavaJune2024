@@ -4,6 +4,8 @@ import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.IOException;
+import java.net.MalformedURLException;
+import java.net.URL;
 import java.text.SimpleDateFormat;
 import java.time.Duration;
 import java.util.Date;
@@ -21,9 +23,15 @@ import org.openqa.selenium.TakesScreenshot;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.chrome.ChromeDriver;
+import org.openqa.selenium.chrome.ChromeOptions;
 import org.openqa.selenium.edge.EdgeDriver;
+import org.openqa.selenium.edge.EdgeOptions;
 import org.openqa.selenium.firefox.FirefoxDriver;
+import org.openqa.selenium.firefox.FirefoxOptions;
 import org.openqa.selenium.ie.InternetExplorerDriver;
+import org.openqa.selenium.ie.InternetExplorerOptions;
+import org.openqa.selenium.remote.DesiredCapabilities;
+import org.openqa.selenium.remote.RemoteWebDriver;
 import org.testng.ITestResult;
 
 import com.POM.DataDrivenPOM;
@@ -138,6 +146,74 @@ public class Library extends Base{
 	public void PageLoadTimeOut(int seconds) {
 		  driver.manage().timeouts().pageLoadTimeout(Duration.ofSeconds(seconds));
 	}
+	
+
+	//below is the method for selenium 4
+		public WebDriver getBrowserCapabilities(String BrowserName) {
+			if (BrowserName == null || BrowserName.equalsIgnoreCase("FIREFOX")) {
+				FirefoxOptions options = new FirefoxOptions();
+				// options.setHeadless(headless);
+				try {
+					driver = new RemoteWebDriver(new URL("http://localhost:4444"), options);
+				} catch (MalformedURLException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+			} else if (BrowserName.equalsIgnoreCase("IE")) {
+				// capabilities.setCapability(InternetExplorerDriver.INTRODUCE_FLAKINESS_BY_IGNORING_SECURITY_DOMAINS,
+				// true);
+				// capabilities.setCapability(InternetExplorerDriver.IE_ENSURE_CLEAN_SESSION,
+				// true);
+				InternetExplorerOptions options = new InternetExplorerOptions();
+				try {
+					driver = new RemoteWebDriver(new URL("http://localhost:4444"), options);
+				} catch (MalformedURLException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+			} else if (BrowserName.equalsIgnoreCase("CHROME")) {
+				ChromeOptions options = new ChromeOptions();
+				// options.setHeadless(headless);
+				try {
+					driver = new RemoteWebDriver(new URL("http://localhost:4444"), options);
+				} catch (MalformedURLException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+			} else if (BrowserName.equalsIgnoreCase("EDGE")) {
+				EdgeOptions options = new EdgeOptions();
+				try {
+					driver = new RemoteWebDriver(new URL("http://localhost:4444"), options);
+				} catch (MalformedURLException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+
+			}
+			return driver;
+		}
+		
+		public WebDriver initializeBrowser(String broswerName) {
+			DesiredCapabilities dc = new DesiredCapabilities();
+			if (broswerName.equals("chrome")) {
+				dc.setBrowserName("chrome");
+			} else if (broswerName.equals("firefox")) {
+				dc.setBrowserName("firefox");
+			} else if (broswerName.equals("safari")) {
+				dc.setBrowserName("safari");
+			} else if (broswerName.equals("Edge")) {
+				dc.setBrowserName("Edge");
+			} else if (broswerName.equals("ie")) {
+				dc.setBrowserName("ie");
+			}
+			try {
+				driver = new RemoteWebDriver(new URL("http://localhost:4444"), dc);
+			} catch (MalformedURLException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+			return driver;
+		}
 	
 	public void ScrollIntoWebElement(WebElement element) {
 		JavascriptExecutor js = (JavascriptExecutor)driver;
