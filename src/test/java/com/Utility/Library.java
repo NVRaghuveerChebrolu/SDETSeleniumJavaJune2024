@@ -1,5 +1,6 @@
 package com.Utility;
 
+
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
@@ -113,7 +114,7 @@ public class Library extends Base{
 			FileInputStream objFileInput = new FileInputStream(ObjFile);
 			objProp = new Properties();
 			objProp.load(objFileInput);
-			System.out.println(objProp.getProperty("browser"));
+			//System.out.println(objProp.getProperty("browser"));
 			System.out.println(objProp.getProperty("GmoOnLineAppURL"));
 		} catch (FileNotFoundException e) {
 			// TODO Auto-generated catch block
@@ -171,7 +172,8 @@ public class Library extends Base{
 					// TODO Auto-generated catch block
 					e.printStackTrace();
 				}
-			} else if (BrowserName.equalsIgnoreCase("CHROME")) {
+			} else 
+				if (BrowserName.equalsIgnoreCase("CHROME")) {
 				ChromeOptions options = new ChromeOptions();
 				// options.setHeadless(headless);
 				try {
