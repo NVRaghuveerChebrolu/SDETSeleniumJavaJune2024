@@ -9,6 +9,7 @@ https://gorest.co.in/
 https://www.jenkins.io/download/
 https://updates.jenkins.io/download/war/
 java -jar jenkins.war --enable-future-java --httpPort=8080
+https://stackoverflow.com/questions/12472645/how-do-i-schedule-jobs-in-jenkins
 https://www.toolsqa.com/selenium-webdriver/selenium-headless-browser-testing/
 https://dev.mysql.com/downloads/installer/
 https://github.com/SeleniumHQ/selenium/releases/tag/selenium-4.21.0

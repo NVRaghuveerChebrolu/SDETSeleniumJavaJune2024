@@ -5,9 +5,9 @@
 	<groupId>SDETSeleniumJavaJune2024</groupId>
 	<artifactId>SDETSeleniumJavaJune2024</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
-	
-	
-		<build>
+
+
+	<build>
 		<sourceDirectory>src</sourceDirectory>
 		<plugins>
 			<plugin>
@@ -31,8 +31,8 @@
 			</plugin>
 		</plugins>
 	</build>
-	
-	
+
+
 	<dependencies>
 
 		<dependency>
@@ -66,6 +66,19 @@
 			<groupId>org.apache.poi</groupId>
 			<artifactId>poi-ooxml</artifactId>
 			<version>5.2.3</version>
+		</dependency>
+
+		<dependency>
+			<groupId>io.cucumber</groupId>
+			<artifactId>cucumber-java</artifactId>
+			<version>7.18.0</version>
+		</dependency>
+
+		<dependency>
+			<groupId>io.cucumber</groupId>
+			<artifactId>cucumber-junit</artifactId>
+			<version>7.18.0</version>
+			<scope>test</scope>
 		</dependency>
 
 
