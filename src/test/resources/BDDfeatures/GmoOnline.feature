@@ -15,5 +15,19 @@ Feature: Validate GMO Online App End to End flow
     And usr click on Place An Order button
     Then verify the title of Place order page
     And veriy the unit prce and total price calculated
+    
+
+  Scenario Outline: validate datadriven
+    Given User is on login page 
+    When User provides userName as "<userName>" and password as "<Password>"
+    And User click on submit button
+    Then User is on Home Page
+    
+@datadriven
+    Examples: 
+      | userName  | Password |   
+      | user123   |  pass123 | 
+      | user456   |  pass456 | 
+      
 		
     

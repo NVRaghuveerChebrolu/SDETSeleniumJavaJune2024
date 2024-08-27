@@ -7,9 +7,9 @@ import io.cucumber.junit.CucumberOptions;
 
 @RunWith(Cucumber.class)
 @CucumberOptions(
-	features="src/test/resources/BDDfeatures",
+	features="@target/rerun.txt",
 	glue= {"com.BDD"},
-	tags = "@datadriven",
+	tags = "@GmoRegression",
 	plugin= {
 			"pretty",
 			"html:target/cucumber-reports.html",
@@ -18,5 +18,5 @@ import io.cucumber.junit.CucumberOptions;
 	//dryRun=true,
 	monochrome=true
 		)
-public class TestRunner {
+public class TestReRunner {
 }

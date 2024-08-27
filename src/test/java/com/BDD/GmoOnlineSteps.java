@@ -9,6 +9,7 @@ import com.POM.GmoOnlinePOM;
 import com.Utility.Constants;
 import com.Utility.Library;
 
+import io.cucumber.java.en.And;
 import io.cucumber.java.en.Given;
 import io.cucumber.java.en.Then;
 import io.cucumber.java.en.When;
@@ -34,10 +35,10 @@ public class GmoOnlineSteps extends Library {
 		objGmoOnlinePOM.EnterGmoOnline.click();
 
 	}
-	
+
 	@Given("User is on online catalogue page")
 	public void user_is_on_online_catalogue_page() {
-	   
+
 	}
 
 	@Then("verify the title of Onlicatalogue Page")
@@ -90,6 +91,27 @@ public class GmoOnlineSteps extends Library {
 		Float TotalPriceFromAppWithoutDollerinFloat = Float.parseFloat(TotalPriceFromAppWithoutDoller);
 		Assert.assertEquals(calculatedValueOfUnitPrice, TotalPriceFromAppWithoutDollerinFloat);
 		objSoftAssert.assertAll();
+	}
+
+	@Given("^User is on login page$")
+	public void user_is_on_login_page() {
+		System.out.println("user is on login page");
+	}
+
+	@When("User provides userName as {string} and password as {string}")
+	public void user_provides_user_name_as_and_password_as(String userName, String password) {
+		System.out.println("userName is:"+userName);
+		System.out.println("password is:"+password);
+	}
+
+	@And("^User click on submit button$")
+	public void user_click_on_submit_button() {
+		System.out.println("user clicks on submit button");
+	}
+
+	@Then("^User is on Home Page$")
+	public void user_is_on_home_page() {
+		System.out.println("user is on Home Page");
 	}
 
 }
