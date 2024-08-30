@@ -126,7 +126,11 @@ public class Library extends Base{
 		String browserFromPropFile = objProp.getProperty("browser");
 		switch(browserFromPropFile.toLowerCase()) {
 		case "chrome":
-			driver=new ChromeDriver();
+			//driver=new ChromeDriver();
+			ChromeOptions options = new ChromeOptions();
+			File objFile = new File (System.getProperty("user.dir")+"//addBlocker//extension_5.21.0.crx");
+			options.addExtensions(objFile);
+			driver=new ChromeDriver(options);
 			break;
 		case "firefox":
 			driver=new FirefoxDriver();

@@ -1,3 +1,4 @@
+@featureleveltag
 Feature: Validate GMO Online App End to End flow
 
 
@@ -28,6 +29,15 @@ Feature: Validate GMO Online App End to End flow
       | userName  | Password |   
       | user123   |  pass123 | 
       | user456   |  pass456 | 
+      
+      
+Scenario: validate the login and scroll functionality in home page
+   	Given User is on login page
+    When user provide quantity for sun glasses product
+    And usr click on Place An Order button
+    Then verify the title of Place order page
+    And veriy the unit prce and total price calculated
+    When User perform scroll operation to the bottom of the page
       
 		
     

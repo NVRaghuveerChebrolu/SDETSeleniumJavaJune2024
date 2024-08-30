@@ -9,7 +9,7 @@ import io.cucumber.junit.CucumberOptions;
 @CucumberOptions(
 	features="src/test/resources/BDDfeatures",
 	glue= {"com.BDD"},
-	tags = "@datadriven",
+	tags = "@featureleveltag",
 	plugin= {
 			"pretty",
 			"html:target/cucumber-reports.html",
