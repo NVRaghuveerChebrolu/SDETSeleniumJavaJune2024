@@ -23,6 +23,12 @@ import io.restassured.response.ResponseBody;
 
 
 public class GetRequestIndividualGoRest extends Library{
+	/*
+	given()->Pre-requisite or precondition (request headers, payload, query or path parameters,auth 
+	when()->API request (GET,POST,PUT,DELETE)
+	then()->validation (status code,message, time, response payload
+	*/
+	
 	@Test()
 	public void GetRequest() {
 	Response Res= RestAssured

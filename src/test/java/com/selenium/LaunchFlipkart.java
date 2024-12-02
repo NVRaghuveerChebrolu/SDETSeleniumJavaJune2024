@@ -19,7 +19,7 @@ public class LaunchFlipkart {
 		driver.manage().window().maximize();
 		driver.get("https://www.flipkart.com/");
 		driver.findElement(By.name("q")).sendKeys("samsung mobiles");
-		driver.findElement(By.className("_2iLD__")).click();
+		driver.findElement(By.xpath("//button[@aria-label='Search for Products, Brands and More']")).click();
 		//driver.close();
 	}
 }
